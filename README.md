@@ -18,7 +18,7 @@ This repository contains Docker Compose configurations to run the **Spring PetCl
 docker compose up -d
 
 ## with replica 
-docker compose -f docker-compose-replica.yml up -d --scale spring-app=4
+docker compose -f docker-compose-replica.yml up -d --scale spring-app=4 
 
 ## then 
-Access the app at: http://localhost:8080
+Access the app at: http://localhost:8080 for using nginx as loadbalancer for the 4 replicas
