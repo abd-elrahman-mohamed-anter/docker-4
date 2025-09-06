@@ -34,40 +34,81 @@ The application was accessed successfully in a web browser. The URL `localhost:3
 ![3](3.png)
 ---
 
-## 4. Scaling the Application Service
-To handle increased traffic, the application service was scaled up using the `--scale` flag. The following command started four separate instances of the `spring-app` container:
+# Scaling Spring PetClinic with Docker Compose & Nginx Load Balancer 🐳
+
+## 4. Scaling the Spring Application
+
+To scale the application into multiple replicas, run:
 
 ```bash
-docker compose up -d --scale spring-app=4
+docker compose -f docker-compose-replica.yml up -d --scale spring-app=5
 ```
-![4](4.png)
+
+* `docker compose` → Starts Docker Compose (v2).
+* `-f docker-compose-replica.yml` → Use the replica-specific compose file.
+* `up -d` → Launch containers in detached (background) mode.
+* `--scale spring-app=5` → Run **5 instances** of the Spring PetClinic application.
+
+⚠️ Note: Docker may warn that `version:` in the Compose file is obsolete — you can safely remove it.
+
+📸 Example output:
+![scale](scale.png)
+
 ---
 
-## 5. Verifying the Scaled Containers
-The following command was used again to confirm the scaling:
+## 5. Verifying Running Containers
+
+Check which containers are running with:
 
 ```bash
 docker compose ps
 ```
-![5](5.png)
-The output showed one database container and four separate running instances of the `spring-app` container.
+
+This lists:
+
+* **db** → 1 MySQL container.
+* **spring-app** → 5 replicas (`spring-app-1` … `spring-app-5`).
+* **nginx** → A single reverse proxy instance.
+
+📸 Example output:
+![ps](ps.png)
 
 ---
 
-## 6. Accessing Scaled Services Through a Reverse Proxy
-An additional Nginx container was introduced to act as a reverse proxy or load balancer. The following command verified the setup:
+## 6. Testing Load Balancing with Nginx
+
+Nginx was configured with an **upstream block** and a custom response header `X-Served-By` to identify which replica handled each request.
+
+Run the following test:
 
 ```bash
-docker compose ps
+for i in {1..30}; do curl -s -i http://localhost:8888 | grep X-Served-By; done
 ```
 
-The output confirmed that a single Nginx instance was running alongside the four scaled `spring-app` containers.
-![6](6.png)
+Explanation:
+
+* `for i in {1..30}` → Loop executes 30 requests.
+* `curl -s -i http://localhost:8888` → Sends HTTP requests to the reverse proxy.
+* `grep X-Served-By` → Filters only the header that shows which replica responded.
+
+📸 Example output:
+![curl-loop](for.png)
+
+👉 The responses show different container IPs like:
+
+```
+X-Served-By: 172.23.0.3:8080
+X-Served-By: 172.23.0.4:8080
+X-Served-By: 172.23.0.5:8080
+```
+
+This confirms that Nginx **distributes traffic across multiple replicas**.
+
 ---
 
-## 7. Final Application Access via Port 8080
-The application was then accessed via `localhost:8080`. This demonstrated that the Nginx reverse proxy was correctly configured to listen on port 8080 and route requests to multiple application instances.
-![7](7.png)
+## 7. Final Result
 
-
+* ✅ **5 Spring PetClinic replicas** running in parallel.
+* ✅ **Nginx reverse proxy** load balances incoming traffic.
+* ✅ **X-Served-By header** makes it easy to see which replica processed each request.
 
