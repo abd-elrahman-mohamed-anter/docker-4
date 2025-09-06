@@ -27,9 +27,9 @@ This project demonstrates how to use **Docker Compose** to deploy, scale, and ma
 ---
 
 ### Note
-⚙️ = docker-compose.yml (تشغيل نسخة واحدة)
+⚙️ = docker-compose.yml (تشغيل نسخة واحدة)  ====> From step 1 to 3 .
 
-🌀 = docker-compose-replica.yml (تشغيل عدة نسخ / Scaling)
+🌀 = docker-compose-replica.yml (تشغيل عدة نسخ / Scaling)   ====> From step 4 to the end .
 
 
 ## 1️⃣ Initial Deployment & Container Status
