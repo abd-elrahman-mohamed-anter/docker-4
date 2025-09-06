@@ -24,13 +24,25 @@ To check the status of all containers managed by the Docker Compose file, the fo
 ```bash
 docker compose ps
 ```
+Purpose:
 
-The output confirmed that both the database (`clinic-db`) and the application (`spring-bit-clinic`) were up and running.
+Confirms that both the database and application containers are running correctly.
+
+Useful to verify if containers started without errors or if any crashed during initialization.
+
+📸 Example output:
+
 ![2](2.png)
 ---
 
 ## 3. Accessing the Application
 The application was accessed successfully in a web browser. The URL `localhost:32775` indicated that the application was running, showing the "Welcome" page of the Spring PetClinic application.
+Purpose:
+
+Ensures the application is reachable from your host machine.
+
+The Spring PetClinic “Welcome” page confirms the application is properly connected to the database and running.
+
 ![3](3.png)
 ---
 
@@ -48,8 +60,16 @@ docker compose -f docker-compose-replica.yml up -d --scale spring-app=5
 * `-f docker-compose-replica.yml` → Use the replica-specific compose file.
 * `up -d` → Launch containers in detached (background) mode.
 * `--scale spring-app=5` → Run **5 instances** of the Spring PetClinic application.
+Benefits:
+
+Handles higher traffic efficiently.
+
+Provides redundancy: if one container fails, others continue serving requests.
+
+Demonstrates horizontal scaling in action.
 
 ⚠️ Note: Docker may warn that `version:` in the Compose file is obsolete — you can safely remove it.
+
 
 📸 Example output:
 ![scale](scale.png)
@@ -75,21 +95,62 @@ This lists:
 
 ---
 
-## 6. Testing Load Balancing with Nginx
+Nginx was configured to distribute traffic across multiple Spring replicas:
 
-Nginx was configured with an **upstream block** and a custom response header `X-Served-By` to identify which replica handled each request.
+upstream spring_backend {
+    server spring-app:8080;
+}
 
-Run the following test:
+server {
+    listen 8080;
 
-```bash
+    location / {
+        proxy_pass http://spring_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        add_header X-Served-By $upstream_addr;
+    }
+}
+
+
+Purpose:
+
+upstream spring_backend → Defines the pool of Spring replicas.
+
+proxy_pass http://spring_backend → Routes incoming requests to the upstream pool.
+
+X-Served-By → Custom header to identify which replica handled the request.
+
+Allows monitoring load distribution and helps debug traffic routing issues.
+
+📸 Nginx config screenshot:
+
+
+7. Testing Load Balancing
+
+Run the following command to simulate multiple requests and observe load balancing:
+
+
 for i in {1..30}; do curl -s -i http://localhost:8888 | grep X-Served-By; done
-```
+
 
 Explanation:
 
-* `for i in {1..30}` → Loop executes 30 requests.
-* `curl -s -i http://localhost:8888` → Sends HTTP requests to the reverse proxy.
-* `grep X-Served-By` → Filters only the header that shows which replica responded.
+for i in {1..30} → Sends 30 consecutive requests.
+```bash
+curl -s -i http://localhost:8888 → Queries the Nginx reverse proxy.
+```
+
+grep X-Served-By → Filters out only the header showing which replica responded.
+
+Observation:
+
+Each request is handled by a different Spring replica, as shown by varying IPs in X-Served-By.
+
+Confirms Nginx is effectively balancing the load across multiple instances.
 
 📸 Example output:
 ![curl-loop](for.png)
