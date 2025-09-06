@@ -37,6 +37,7 @@ Useful to verify if containers started without errors or if any crashed during i
 
 ## 3. Accessing the Application
 The application was accessed successfully in a web browser. The URL `localhost:32775` indicated that the application was running, showing the "Welcome" page of the Spring PetClinic application.
+
 Purpose:
 
 Ensures the application is reachable from your host machine.
