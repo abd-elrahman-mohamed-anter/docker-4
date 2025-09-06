@@ -1,3 +1,41 @@
+# 🐳 DevOps Project: Scaling Spring PetClinic with Docker Compose & Nginx
+
+![Docker](https://img.shields.io/badge/Docker-20.10-blue?logo=docker)
+![Docker Compose](https://img.shields.io/badge/Compose-2.17-blue?logo=docker)
+
+**Objective:** Deploy, scale, and manage a **multi-container Spring PetClinic app** using **Docker Compose** with **MySQL** and **Nginx** as a load balancer. Demonstrates **horizontal scaling, traffic distribution, and observability**.
+
+---
+
+## 📌 Table of Contents
+1. [Prerequisites](#-prerequisites)
+2. [Initial Deployment](#1-initial-deployment)
+3. [Verify Running Containers](#2-verify-running-containers)
+4. [Access the Application](#3-access-the-application)
+5. [Scale Spring PetClinic](#4-scale-spring-petclinic)
+6. [Verify Scaled Containers](#5-verify-scaled-containers)
+7. [Nginx Load Balancer](#6-nginx-load-balancer)
+8. [Test Load Balancing](#7-test-load-balancing)
+9. [Final Result](#8-final-result)
+10. [Compose Files](#-compose-files)
+
+---
+
+## ✅ Prerequisites
+- Docker  
+- Docker Compose  
+- Basic knowledge of containers and networking  
+
+---
+
+## 1️⃣ Initial Deployment
+
+```bash
+docker compose up -d
+
+
+
+
 # DevOps Project: Docker & Container Orchestration
 ### Scaling Spring PetClinic with Docker Compose & Nginx Load Balanc
 
