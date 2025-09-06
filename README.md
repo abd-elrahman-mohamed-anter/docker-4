@@ -1,8 +1,4 @@
-تمام 😎، ممكن أظبطه لك بحيث يكون **جاهز تمامًا للـ GitHub README**، بصياغة Markdown نظيفة، أوامر قابلة للـ copy-paste، وبورتات موحدة لتجنب أي لبس. كمان هضيف Table of Contents لتحسين التنقل.
 
----
-
-````markdown
 # 🐳 DevOps Project: Docker & Container Orchestration
 ### Scaling Spring PetClinic with Docker Compose & Nginx Load Balancer
 
