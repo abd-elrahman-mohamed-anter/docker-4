@@ -86,6 +86,8 @@ http://localhost:8080
 
 ## 4️⃣ Scaling the Spring Application
 
+🌀 From this step, we use docker-compose-replica.yml (multiple replicas)
+
 ### Note: Starting from this step, we use docker-compose-replica.yml, which is designed for scaling and running multiple replicas of the Spring application.
 
 To scale the application into multiple replicas:
