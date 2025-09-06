@@ -1,6 +1,5 @@
-
-
 # DevOps Project: Docker & Container Orchestration
+### Scaling Spring PetClinic with Docker Compose & Nginx Load Balanc
 
 This project demonstrates how to use **Docker Compose** to deploy, scale, and manage a **multi-container Spring PetClinic application** with **MySQL** and **Nginx** as a reverse proxy/load balancer. It illustrates **container orchestration, horizontal scaling, traffic distribution, and observability**.
 
