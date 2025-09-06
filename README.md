@@ -28,6 +28,8 @@ This project demonstrates how to use **Docker Compose** to deploy, scale, and ma
 
 ## 1️⃣ Initial Deployment & Container Status
 
+> ⚙️ Using **`docker-compose.yml`** (single instance)
+
 ### Note: In this step, we are using the standard docker-compose.yml file to deploy a single instance of the application.
 Start the Docker Compose setup:
 
