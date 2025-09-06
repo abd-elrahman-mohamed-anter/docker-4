@@ -100,6 +100,7 @@ Explanation:
 X-Served-By: 172.23.0.3:8080
 X-Served-By: 172.23.0.4:8080
 X-Served-By: 172.23.0.5:8080
+X-Served-By: 172.23.0.6:8080
 ```
 
 This confirms that Nginx **distributes traffic across multiple replicas**.
