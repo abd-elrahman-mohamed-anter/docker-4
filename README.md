@@ -1,14 +1,4 @@
-تمام 😎، هظبط لك **README كامل وجاهز للـ GitHub** مع:
 
-* Table of Contents مرقّمة ومتناسقة.
-* جميع الأوامر قابلة للنسخ.
-* بورتات موحدة (8080).
-* صور وأمثلة للمخرجات.
-* تنسيق Markdown نظيف وجاهز للنشر.
-
----
-
-````markdown
 # 🐳 DevOps Project: Docker & Container Orchestration
 ### Scaling Spring PetClinic with Docker Compose & Nginx Load Balancer
 
