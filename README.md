@@ -77,7 +77,7 @@ docker compose ps
 Open the application in a browser:
 
 ```
-http://localhost:8080
+http://localhost:.... ==> Random port
 ```
 
 **Purpose:**
